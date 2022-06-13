@@ -1,8 +1,12 @@
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Paymentsense.Coding.Challenge.Api.HttpClientServices;
+using Paymentsense.Coding.Challenge.Api.Services;
 
 namespace Paymentsense.Coding.Challenge.Api
 {
@@ -19,6 +23,12 @@ namespace Paymentsense.Coding.Challenge.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            // for DI, so that only one instance is used
+            services.AddSingleton<CountryService>();
+            services.AddSingleton<CountryClient>();
+            services.AddHttpClient();
+
             services.AddHealthChecks();
             services.AddCors(options =>
             {
@@ -50,6 +60,12 @@ namespace Paymentsense.Coding.Challenge.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+
+                // endpoints.MapGet("/", async context =>
+                // {
+                //     await context.Response.WriteAsync("Hello World!");
+                // });
+
                 endpoints.MapHealthChecks("/health");
             });
         }
