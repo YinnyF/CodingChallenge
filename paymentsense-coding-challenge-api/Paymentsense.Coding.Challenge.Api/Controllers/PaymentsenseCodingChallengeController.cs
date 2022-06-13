@@ -31,7 +31,7 @@ namespace Paymentsense.Coding.Challenge.Api.Controllers
 
                 return Ok(countries);
             }
-            catch (ArgumentException)
+            catch (SystemException)
             {
                 return NotFound();
             }

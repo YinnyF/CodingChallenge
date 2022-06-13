@@ -26,7 +26,7 @@ namespace Paymentsense.Coding.Challenge.Api.HttpClientServices
             // other HTTP responses -  404 NotFound or perhaps there are no countries to show?
             if (response.StatusCode == HttpStatusCode.NotFound || response.StatusCode == HttpStatusCode.NoContent)
             {
-                throw new ArgumentException();
+                throw new SystemException();
             }
 
             var responseContent = await response.Content.ReadAsStringAsync();
