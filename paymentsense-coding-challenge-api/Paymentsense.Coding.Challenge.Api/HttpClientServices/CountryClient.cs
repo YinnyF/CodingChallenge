@@ -1,19 +1,14 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
-using System.Reflection.Metadata.Ecma335;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Paymentsense.Coding.Challenge.Api.Models;
-using JsonConverter = System.Text.Json.Serialization.JsonConverter;
 
 namespace Paymentsense.Coding.Challenge.Api.HttpClientServices
 {
-    public class CountryClient
+    public class CountryClient : ICountryClient
     {
         private readonly IHttpClientFactory _httpClientFactory;
 
@@ -49,7 +44,7 @@ namespace Paymentsense.Coding.Challenge.Api.HttpClientServices
             // other HTTP responses -  404 NotFound
             if (response.StatusCode == HttpStatusCode.NotFound)
             {
-                throw new ArgumentException();
+                return null;
             }
 
             var responseContent = await response.Content.ReadAsStringAsync();

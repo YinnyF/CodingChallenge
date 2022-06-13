@@ -2,17 +2,14 @@
 using Paymentsense.Coding.Challenge.Api.Models;
 using System.Threading.Tasks;
 using Paymentsense.Coding.Challenge.Api.HttpClientServices;
-using System;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Paymentsense.Coding.Challenge.Api.Services
 {
-    public class CountryService
+    public class CountryService : ICountryService
     {
-        private readonly CountryClient _countryClient;
+        private readonly ICountryClient _countryClient;
 
-        public CountryService(CountryClient countryClient)
+        public CountryService(ICountryClient countryClient)
         {
             _countryClient = countryClient;
         }

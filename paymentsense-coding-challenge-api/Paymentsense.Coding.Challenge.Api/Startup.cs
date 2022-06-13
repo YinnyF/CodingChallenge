@@ -25,8 +25,8 @@ namespace Paymentsense.Coding.Challenge.Api
             services.AddControllers();
 
             // for DI, so that only one instance is used
-            services.AddSingleton<CountryService>();
-            services.AddSingleton<CountryClient>();
+            services.AddSingleton<ICountryService, CountryService>();
+            services.AddSingleton<ICountryClient, CountryClient>();
             services.AddHttpClient();
 
             services.AddHealthChecks();

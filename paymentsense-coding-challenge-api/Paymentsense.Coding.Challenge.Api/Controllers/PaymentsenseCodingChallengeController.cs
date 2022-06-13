@@ -13,15 +13,16 @@ namespace Paymentsense.Coding.Challenge.Api.Controllers
     [Route("api/[controller]")]
     public class PaymentsenseCodingChallengeController : ControllerBase
     {
-        private readonly CountryService _countryService;
+        private readonly ICountryService _countryService;
 
-        public PaymentsenseCodingChallengeController(CountryService countryService)
+        public PaymentsenseCodingChallengeController(ICountryService countryService)
         {
             _countryService = countryService;
         }
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IList<Country>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Get()
         {
             try
@@ -30,7 +31,7 @@ namespace Paymentsense.Coding.Challenge.Api.Controllers
 
                 return Ok(countries);
             }
-            catch(ArgumentException)
+            catch (ArgumentException)
             {
                 return NotFound();
             }
@@ -39,6 +40,7 @@ namespace Paymentsense.Coding.Challenge.Api.Controllers
         [HttpGet("{Alpha2Code}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Country))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetByAlpha2Code(string alpha2Code)
         {
             // validate the Alpha2Code parameter - check if letters only, and 2 chars?
@@ -47,16 +49,14 @@ namespace Paymentsense.Coding.Challenge.Api.Controllers
                 return BadRequest();
             }
 
-            try
-            {
-                var country = await _countryService.GetCountryByAlpha2CodeAsync(alpha2Code);
+            var country = await _countryService.GetCountryByAlpha2CodeAsync(alpha2Code);
 
-                return Ok(country);
-            }
-            catch (ArgumentException)
+            if (country == null)
             {
-                return BadRequest();
+                return NotFound();
             }
+
+            return Ok(country);
             // return Ok($"hello {alpha2Code}");
         }
     }
