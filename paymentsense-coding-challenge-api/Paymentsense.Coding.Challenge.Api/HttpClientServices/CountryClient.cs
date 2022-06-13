@@ -8,6 +8,7 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Paymentsense.Coding.Challenge.Api.Models;
+using JsonConverter = System.Text.Json.Serialization.JsonConverter;
 
 namespace Paymentsense.Coding.Challenge.Api.HttpClientServices
 {
@@ -42,6 +43,24 @@ namespace Paymentsense.Coding.Challenge.Api.HttpClientServices
             IList<Country> countries = JsonConvert.DeserializeObject<IList<Country>>(responseContent);
 
             return countries;
+        }
+
+        public async Task<Country> GetCountryByAlpha2CodeAsync(string alpha2Code)
+        {
+            var httpClient = _httpClientFactory.CreateClient();
+            var response = await httpClient.GetAsync($"https://restcountries.com/v2/alpha/{alpha2Code}");
+
+            // TODO: other HTTP responses -  404 NotFound
+            if (response.StatusCode == HttpStatusCode.NotFound)
+            {
+
+            }
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+
+            Country country = JsonConvert.DeserializeObject<Country>(responseContent);
+
+            return country;
         }
     }
 }

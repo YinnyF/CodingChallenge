@@ -22,5 +22,14 @@ namespace Paymentsense.Coding.Challenge.Api.Controllers
 
             return Ok(countries);
         }
+
+        [HttpGet("{Alpha2Code}")]
+        public async Task<IActionResult> GetByAlpha2Code(string alpha2Code)
+        {
+            // return Ok($"hello {alpha2Code}");
+            var country = await _countryService.GetCountryByAlpha2CodeAsync(alpha2Code);
+
+            return Ok(country);
+        }
     }
 }
