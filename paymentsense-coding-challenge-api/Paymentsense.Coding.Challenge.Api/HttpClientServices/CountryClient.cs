@@ -24,6 +24,7 @@ namespace Paymentsense.Coding.Challenge.Api.HttpClientServices
             var response = await httpClient.GetAsync("https://restcountries.com/v2/all");
         
             // other HTTP responses -  404 NotFound or perhaps there are no countries to show?
+
             if (response.StatusCode == HttpStatusCode.NotFound || response.StatusCode == HttpStatusCode.NoContent)
             {
                 throw new SystemException();
