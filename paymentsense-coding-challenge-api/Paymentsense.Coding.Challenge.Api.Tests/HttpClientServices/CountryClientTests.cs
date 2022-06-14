@@ -158,6 +158,35 @@ namespace Paymentsense.Coding.Challenge.Api.Tests.HttpClientServices
                 Content = new StringContent($"{null}")
             };
 
+            _fakeHttpMessageHandler = new Mock<FakeHttpMessageHandler> { CallBase = true };
+            _fakeHttpMessageHandler.Setup(f => f.Send(It.IsAny<HttpRequestMessage>()))
+                .Returns(_fakeHttpResponseMessage);
+
+            _httpClient = new HttpClient(_fakeHttpMessageHandler.Object);
+
+            _fakeHttpClientFactory = new Mock<IHttpClientFactory>();
+            _fakeHttpClientFactory.Setup(s => s.CreateClient(It.IsAny<string>())).Returns(_httpClient);
+
+            _countryClient = new CountryClient(_fakeHttpClientFactory.Object);
+
+            // Act
+            var result = await _countryClient.GetCountryByAlpha2CodeAsync(alpha2Code);
+
+            // Assert
+            result.Should().BeNull();
+        }
+
+        [Fact]
+        public async Task GetCountryByAlpha2CodeAsync_ResponseBadRequest_ReturnsNull()
+        {
+            // Arrange - initialise objects, set behaviour of _fakeHttpMessageHandler
+            string alpha2Code = "";
+
+            _fakeHttpResponseMessage = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.BadRequest,
+                Content = new StringContent($"{null}")
+            };
 
             _fakeHttpMessageHandler = new Mock<FakeHttpMessageHandler> { CallBase = true };
             _fakeHttpMessageHandler.Setup(f => f.Send(It.IsAny<HttpRequestMessage>()))

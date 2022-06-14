@@ -43,7 +43,7 @@ namespace Paymentsense.Coding.Challenge.Api.HttpClientServices
             var response = await httpClient.GetAsync($"https://restcountries.com/v2/alpha/{alpha2Code}");
 
             // other HTTP responses -  404 NotFound
-            if (response.StatusCode == HttpStatusCode.NotFound)
+            if (response.StatusCode == HttpStatusCode.NotFound || response.StatusCode == HttpStatusCode.BadRequest)
             {
                 return null;
             }
