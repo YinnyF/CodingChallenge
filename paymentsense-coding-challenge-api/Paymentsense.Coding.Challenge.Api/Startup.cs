@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Net.Http.Headers;
 using Paymentsense.Coding.Challenge.Api.HttpClientServices;
 using Paymentsense.Coding.Challenge.Api.Services;
 
@@ -28,6 +29,7 @@ namespace Paymentsense.Coding.Challenge.Api
             services.AddSingleton<ICountryService, CountryService>();
             services.AddSingleton<ICountryClient, CountryClient>();
             services.AddHttpClient();
+            // services.AddResponseCaching();
 
             services.AddHealthChecks();
             services.AddCors(options =>
@@ -68,6 +70,18 @@ namespace Paymentsense.Coding.Challenge.Api
 
                 endpoints.MapHealthChecks("/health");
             });
+
+            // app.UseResponseCaching();
+            // app.Use(async (context, next) =>
+            // {
+            //     context.Response.GetTypedHeaders().CacheControl = new CacheControlHeaderValue()
+            //     {
+            //         Public = true,
+            //         MaxAge = TimeSpan.FromSeconds(10)
+            //     };
+            //
+            //     await next();
+            // });
         }
     }
 }

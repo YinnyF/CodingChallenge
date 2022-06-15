@@ -25,16 +25,15 @@ namespace Paymentsense.Coding.Challenge.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Get()
         {
-            try
-            {
-                var countries = await _countryService.GetCountriesAsync();
+            var countries = await _countryService.GetCountriesAsync();
 
+            if (countries != null)
+            {
                 return Ok(countries);
             }
-            catch (SystemException)
-            {
-                return NotFound();
-            }
+
+            return NotFound();
+
         }
 
         [HttpGet("{Alpha2Code}")]
@@ -43,8 +42,7 @@ namespace Paymentsense.Coding.Challenge.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetByAlpha2Code(string alpha2Code)
         {
-            // validate the Alpha2Code parameter - check if letters only, and 2 chars?
-            if (alpha2Code.Length != 2 || !alpha2Code.All(Char.IsLetter))
+            if (alpha2Code.Length != 2 || !alpha2Code.All(char.IsLetter))
             {
                 return BadRequest();
             }

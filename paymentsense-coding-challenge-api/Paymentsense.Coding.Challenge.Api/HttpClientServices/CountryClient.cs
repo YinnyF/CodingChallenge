@@ -19,16 +19,16 @@ namespace Paymentsense.Coding.Challenge.Api.HttpClientServices
 
         public async Task<IList<Country>> GetCountriesAsync()
         {
-            // make a HTTP GET request to "https://restcountries.com/v2/all"
             var httpClient = _httpClientFactory.CreateClient();
             var response = await httpClient.GetAsync("https://restcountries.com/v2/all");
         
             // other HTTP responses -  404 NotFound or perhaps there are no countries to show?
-
             if (response.StatusCode == HttpStatusCode.NotFound || response.StatusCode == HttpStatusCode.NoContent)
             {
-                throw new SystemException();
+                return null;
             }
+
+            response.EnsureSuccessStatusCode();
 
             var responseContent = await response.Content.ReadAsStringAsync();
         
@@ -42,11 +42,14 @@ namespace Paymentsense.Coding.Challenge.Api.HttpClientServices
             var httpClient = _httpClientFactory.CreateClient();
             var response = await httpClient.GetAsync($"https://restcountries.com/v2/alpha/{alpha2Code}");
 
-            // other HTTP responses -  404 NotFound
-            if (response.StatusCode == HttpStatusCode.NotFound || response.StatusCode == HttpStatusCode.BadRequest)
+            // 404 NotFound 
+            // You wouldn't want to deal with BadRequests here, it should be picked up earlier.
+            if (response.StatusCode == HttpStatusCode.NotFound)
             {
                 return null;
             }
+
+            response.EnsureSuccessStatusCode();
 
             var responseContent = await response.Content.ReadAsStringAsync();
 

@@ -17,7 +17,7 @@ namespace Paymentsense.Coding.Challenge.Api.Tests.Controllers
         private Mock<ICountryService> _countryService;
 
         [Fact]
-        public async Task Get_ReturnsOkWithResult()
+        public async Task Get_CountryServiceReturnsCountries_ReturnsOkWithResult()
         {
             // Arrange
             _countryService = new Mock<ICountryService>();
@@ -41,11 +41,11 @@ namespace Paymentsense.Coding.Challenge.Api.Tests.Controllers
         }
 
         [Fact]
-        public async Task Get_WhenServiceIsDown_ReturnsNotFound()
+        public async Task Get_CountryServiceReturnsNull_ReturnsNotFound()
         {
             // Arrange
             _countryService = new Mock<ICountryService>();
-            _countryService.Setup(s => s.GetCountriesAsync()).Throws(new SystemException());
+            _countryService.Setup(s => s.GetCountriesAsync());
 
             _controller = new PaymentsenseCodingChallengeController(_countryService.Object);
 
@@ -56,66 +56,47 @@ namespace Paymentsense.Coding.Challenge.Api.Tests.Controllers
             actionResult.Should().BeOfType<NotFoundResult>();
         }
 
-        [Fact]
-        public async Task GetByAlpha2Code_ValidCode_ReturnsCorrectCountry()
+        [Theory]
+        [InlineData("GBR")]
+        [InlineData("G")]
+        [InlineData("")]
+        public async Task GetByAlpha2Code_WithCodeIncorrectLength_ReturnsBadRequest(string invalidCode)
         {
             // Arrange
             _countryService = new Mock<ICountryService>();
-            string validAlpha2Code = "GB";
-            Country fakeCountry = new Country() { Name = "Test1", Alpha2Code = validAlpha2Code };
-
-            _countryService.Setup(s => s.GetCountryByAlpha2CodeAsync(validAlpha2Code)).ReturnsAsync(fakeCountry);
-
             _controller = new PaymentsenseCodingChallengeController(_countryService.Object);
 
             // Act
-            var actionResult = await _controller.GetByAlpha2Code(validAlpha2Code);
+            var actionResult = await _controller.GetByAlpha2Code(invalidCode);
 
             // Assert
-            actionResult.Should().BeOfType<OkObjectResult>().Which.Value.Should().Be(fakeCountry);
+            actionResult.Should().BeOfType<BadRequestResult>();
         }
 
-        [Fact]
-        public async Task GetByAlpha2Code_WithCodeIncorrectLength_ReturnsBadRequest()
+        [Theory]
+        [InlineData("11")]
+        [InlineData("a1")]
+        [InlineData("1a")]
+        [InlineData("&&")]
+        public async Task GetByAlpha2Code_WithCodeIncorrectFormat_ReturnsBadRequest(string invalidCode)
         {
             // Arrange
             _countryService = new Mock<ICountryService>();
-            string invalidAlpha2Code = "GBR";
-
-            _countryService.Setup(s => s.GetCountryByAlpha2CodeAsync(invalidAlpha2Code));
-
             _controller = new PaymentsenseCodingChallengeController(_countryService.Object);
 
             // Act
-            var actionResult = await _controller.GetByAlpha2Code(invalidAlpha2Code);
+            var actionResult = await _controller.GetByAlpha2Code(invalidCode);
 
             // Assert
             actionResult.Should().BeOfType<BadRequestResult>();
         }
 
         [Fact]
-        public async Task GetByAlpha2Code_WithCodeIncorrectFormat_ReturnsBadRequest()
+        public async Task GetByAlpha2Code_CountryServiceReturnsNull_ReturnsNotFound()
         {
             // Arrange
             _countryService = new Mock<ICountryService>();
-            string invalidAlpha2Code = "11";
-
-            _countryService.Setup(s => s.GetCountryByAlpha2CodeAsync(invalidAlpha2Code));
-
-            _controller = new PaymentsenseCodingChallengeController(_countryService.Object);
-
-            // Act
-            var actionResult = await _controller.GetByAlpha2Code(invalidAlpha2Code);
-
-            // Assert
-            actionResult.Should().BeOfType<BadRequestResult>();
-        }
-
-        [Fact]
-        public async Task GetByAlpha2Code_WithInvalidCode_ReturnsNotFound()
-        {
-            // Arrange
-            _countryService = new Mock<ICountryService>();
+            // fyi not concerned if code is valid or not here
             string invalidAlpha2Code = "zz";
 
             // returns null when the method is called
@@ -128,6 +109,26 @@ namespace Paymentsense.Coding.Challenge.Api.Tests.Controllers
 
             // Assert
             actionResult.Should().BeOfType<NotFoundResult>();
+        }
+
+        [Fact]
+        public async Task GetByAlpha2Code_CountryServiceReturnsCountry_ReturnsCountry()
+        {
+            // Arrange
+            _countryService = new Mock<ICountryService>();
+            // fyi not concerned if code is valid or not here
+            string validAlpha2Code = "GB";
+            Country fakeCountry = new Country() { Name = "Test1", Alpha2Code = validAlpha2Code };
+
+            _countryService.Setup(s => s.GetCountryByAlpha2CodeAsync(validAlpha2Code)).ReturnsAsync(fakeCountry);
+
+            _controller = new PaymentsenseCodingChallengeController(_countryService.Object);
+
+            // Act
+            var actionResult = await _controller.GetByAlpha2Code(validAlpha2Code);
+
+            // Assert
+            actionResult.Should().BeOfType<OkObjectResult>().Which.Value.Should().Be(fakeCountry);
         }
     }
 }
