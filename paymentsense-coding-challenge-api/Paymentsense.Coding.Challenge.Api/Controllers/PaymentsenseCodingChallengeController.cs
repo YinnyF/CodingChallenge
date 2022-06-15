@@ -11,6 +11,7 @@ namespace Paymentsense.Coding.Challenge.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+
     public class PaymentsenseCodingChallengeController : ControllerBase
     {
         private readonly ICountryService _countryService;
@@ -23,6 +24,8 @@ namespace Paymentsense.Coding.Challenge.Api.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IList<Country>))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        // Not required
+        // [ResponseCache(Duration = 60, Location = ResponseCacheLocation.Any, NoStore = false)]
         public async Task<IActionResult> Get()
         {
             var countries = await _countryService.GetCountriesAsync();

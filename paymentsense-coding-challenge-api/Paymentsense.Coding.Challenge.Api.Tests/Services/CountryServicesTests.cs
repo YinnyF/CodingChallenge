@@ -43,5 +43,7 @@ namespace Paymentsense.Coding.Challenge.Api.Tests.Services
             // Assert
             _countryClient.Verify(c => c.GetCountryByAlpha2CodeAsync(alpha2Code));
         }
+
+        // TODO: CheckoutException returns something
     }
 }

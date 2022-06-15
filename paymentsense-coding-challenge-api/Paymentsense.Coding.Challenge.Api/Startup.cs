@@ -29,7 +29,6 @@ namespace Paymentsense.Coding.Challenge.Api
             services.AddSingleton<ICountryService, CountryService>();
             services.AddSingleton<ICountryClient, CountryClient>();
             services.AddHttpClient();
-            // services.AddResponseCaching();
 
             services.AddHealthChecks();
             services.AddCors(options =>
@@ -41,6 +40,8 @@ namespace Paymentsense.Coding.Challenge.Api
                         .AllowAnyHeader();
                 });
             });
+
+            services.AddResponseCaching();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,6 +60,23 @@ namespace Paymentsense.Coding.Challenge.Api
 
             app.UseAuthorization();
 
+            app.UseResponseCaching();
+
+            app.Use(async (context, next) =>
+            {
+                context.Response.GetTypedHeaders().CacheControl = new CacheControlHeaderValue()
+                {
+                    Public = true,
+                    MaxAge = TimeSpan.FromSeconds(60)
+                };
+            
+                // What is this
+                context.Response.Headers[HeaderNames.Vary] =
+                    new string[] { "Accept-Encoding" };
+            
+                await next();
+            });
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
@@ -70,18 +88,6 @@ namespace Paymentsense.Coding.Challenge.Api
 
                 endpoints.MapHealthChecks("/health");
             });
-
-            // app.UseResponseCaching();
-            // app.Use(async (context, next) =>
-            // {
-            //     context.Response.GetTypedHeaders().CacheControl = new CacheControlHeaderValue()
-            //     {
-            //         Public = true,
-            //         MaxAge = TimeSpan.FromSeconds(10)
-            //     };
-            //
-            //     await next();
-            // });
         }
     }
 }
