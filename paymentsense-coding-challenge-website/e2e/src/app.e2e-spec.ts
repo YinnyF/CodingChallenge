@@ -10,7 +10,7 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('Welcome to paymentsense-coding-challenge-website!');
+    expect(page.getTitleText()).toEqual('Paymentsense Coding Challenge!');
   });
 
   afterEach(async () => {
