@@ -1,0 +1,19 @@
+<div *ngIf="country" class="country-detail">
+    <div class="close-icon" (click)="closeCountryDetail()">x</div>
+    <h2>{{country.name | titlecase}}</h2>
+
+    <div class="flag-container">
+        <img 
+            class="flag"
+            src="{{country.flag}}"
+            alt="{{country.name}} flag"
+        />
+    </div>
+
+    <h3>Detail 1</h3>
+    <p>Something here</p>
+
+    <h3>Detail 2</h3>
+    <p>Something here</p>
+
+</div>

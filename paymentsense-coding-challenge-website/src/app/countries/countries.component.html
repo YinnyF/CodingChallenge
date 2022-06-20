@@ -1,0 +1,11 @@
+<h2>Countries</h2>
+
+<ul class="countries">
+    <li *ngFor="let country of countries; let i=index">
+        <div [id]="'country-' + i" [class.selected-country]="country === selectedCountry" (click)="onSelect(country, i)">
+            {{ i }} Country {{country.name}}
+        </div>
+    </li>
+</ul>
+
+<app-country-detail [country]="selectedCountry"></app-country-detail>

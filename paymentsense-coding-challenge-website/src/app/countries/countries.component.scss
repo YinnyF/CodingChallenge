@@ -1,0 +1,15 @@
+$primary-color: black;
+$secondary-color: teal;
+$tertiary-color: grey;
+
+.countries {
+    margin: 0 0 2px 0;
+    list-style-type: none;
+    padding: 0;
+    width: 20em;
+  }
+
+.selected-country {
+    background-color: black;
+    color: white;
+}
