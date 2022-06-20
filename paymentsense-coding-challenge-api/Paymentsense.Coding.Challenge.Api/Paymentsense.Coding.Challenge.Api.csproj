@@ -7,6 +7,8 @@
 
   <ItemGroup>
     <Folder Include="HttpClientServices\" />
+    <Folder Include="Filter\" />
+    <Folder Include="Wrappers\" />
     <Folder Include="Services\" />
     <Folder Include="Services\" />
   </ItemGroup>
