@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CountriesComponent } from './countries/countries.component';
+import { HealthCheckComponent } from './health-check/health-check.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/countries', pathMatch: 'full' },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'countries', component: CountriesComponent },
+  { path: 'home', component: HealthCheckComponent }
 ];
 
 @NgModule({

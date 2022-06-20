@@ -10,18 +10,35 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CountriesComponent } from './countries/countries.component';
 import { CountryDetailComponent } from './country-detail/country-detail.component';
 
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { HealthCheckComponent } from './health-check/health-check.component';
+import { MainNavComponent } from './main-nav/main-nav.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+
 @NgModule({
   declarations: [
     AppComponent,
     CountriesComponent,
-    CountryDetailComponent
+    CountryDetailComponent,
+    HealthCheckComponent,
+    MainNavComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MatToolbarModule,
+    MatIconModule,
+    LayoutModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatListModule
   ],
   providers: [PaymentsenseCodingChallengeApiService],
   bootstrap: [AppComponent]

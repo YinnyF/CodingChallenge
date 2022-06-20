@@ -1,0 +1,11 @@
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+$paymentsense-primary: mat-palette($mat-teal);
+$paymentsense-accent: mat-palette($mat-indigo);
+$paymentsense-warn: mat-palette($mat-red);
+
+$paymentsense-theme: mat-light-theme($paymentsense-primary, $paymentsense-accent, $paymentsense-warn);
+
+@include angular-material-theme($paymentsense-theme);
