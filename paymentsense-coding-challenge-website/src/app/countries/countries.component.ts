@@ -9,9 +9,14 @@ import { PaymentsenseCodingChallengeApiService as CountryService } from '../serv
 })
 export class CountriesComponent implements OnInit {
 
-  countries : Country[] = []
-
+  countries: Country[] = [];
+  countryCount?: number;
   selectedCountry?: Country;
+  countriesToDisplay: Country[] = [];
+  currentPage: number = 1;
+  pageSize: number = 10;
+  
+  public totalPages: number = Math.ceil(this.countryCount / this.pageSize);
 
   // selectedCountryId?: number;
 
@@ -21,6 +26,7 @@ export class CountriesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCountries();
+    this.countriesToDisplay = this.paginate(this.currentPage, this.pageSize)
   }
 
   onSelect(country: Country, i: number): void {
@@ -31,7 +37,29 @@ export class CountriesComponent implements OnInit {
 
   getCountries(): void {
     // TODO: replace slice with pagination
-    this.countryService.getCountries().subscribe(countries => this.countries = countries.slice(1, 5));
+    this.countryService.getCountries().subscribe(countries => {
+      this.countries = countries;
+      this.countryCount = countries.length;
+    })
+  }
+
+  onGoTo(page: number): void {
+    this.currentPage = page
+    this.countriesToDisplay = this.paginate(this.currentPage, this.pageSize)
+  }
+
+  onNext(page: number): void {
+    this.currentPage = page + 1;
+    this.countriesToDisplay = this.paginate(this.currentPage, this.pageSize)
+  }
+
+  onPrevious(page: number): void {
+    this.currentPage = page - 1;
+    this.countriesToDisplay = this.paginate(this.currentPage, this.pageSize)
+  }
+
+  public paginate(currentPage: number, pageSize: number): Country[] {
+    return this.countries.slice((currentPage - 1) * pageSize, pageSize)
   }
 
 }

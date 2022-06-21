@@ -10,6 +10,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CountriesComponent } from './countries/countries.component';
 import { CountryDetailComponent } from './country-detail/country-detail.component';
 import { HealthCheckComponent } from './health-check/health-check.component';
+import { PaginationComponent } from './pagination/pagination.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -28,6 +29,7 @@ import { MatExpansionModule } from '@angular/material';
     CountryDetailComponent,
     HealthCheckComponent,
     MainNavComponent,
+    PaginationComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,42 @@
+<nav aria-label="pagination">
+    <mat-action-row>
+        <ul>
+            <li>
+                <button mat-button color="primary" 
+                    aria-label="Go To Previous Page"
+                    [attr.aria-disabled]="currentPage === 1"
+                    [disabled]="currentPage === 1"
+                    (click)="onPrevious()"
+                >
+                    Previous
+                </button>
+            </li>
+
+            <li *ngFor="let page of pages;">
+                <a
+                    [attr.aria-current]="page === currentPage ? 'page' : null"
+                    [attr.aria-label]="
+                        page === currentPage ? 'Current Page, Page ' + page : 'Go to Page ' + page
+                    "
+                    [class.current]="page === currentPage"
+                    tabindex="0"
+                    (click)="onGoTo(page)"
+                    (keyup.enter)="onGoTo(page)"
+                >
+                    {{ page }}
+                </a>
+            </li>
+            
+            <li>
+                <button mat-button color="primary" 
+                    aria-label="Go To Next Page"
+                    [attr.aria-disabled]="currentPage === totalPages"
+                    [disabled]="currentPage === totalPages"
+                    (click)="onNext()"
+                >
+                    Next
+                </button>
+            </li>
+        </ul>
+    </mat-action-row>
+</nav>
