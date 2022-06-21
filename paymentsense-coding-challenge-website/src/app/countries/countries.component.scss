@@ -5,11 +5,20 @@ $teal-text: #00857d;
 $border-grey: #c1c1c1;
 
 .countries-container {
-  display: flex; 
+  display: flex;
+  // flex-basis: 100%;
+  // flex-flow: row wrap;
+  // justify-content: space-around;
+  // align-items: stretch;
 }
 
-.mat-expansion-panel {
-  width: 100%;
+.countries-item-1 {
+  order: 0;
+  flex-basis: 100%;
+}
+
+.countries-item-2 {
+  order: 1;
 }
 
 .mat-expansion-panel-header {
@@ -20,17 +29,11 @@ $border-grey: #c1c1c1;
   box-shadow: none;
   border-radius: 0;
   border-top: 1px solid $border-grey;
-
-  // TODO: it should not scroll...
-  // height: 100%;
 }
 
 .countries-list {
-    // margin: 0 0 2px 0;
     list-style-type: none;
     padding: 0px !important;
-    // width: 20em;
-    // height: 500px;
   }
 
 .country {

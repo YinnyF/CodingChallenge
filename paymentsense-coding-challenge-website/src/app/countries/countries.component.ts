@@ -35,7 +35,6 @@ export class CountriesComponent implements OnInit {
   }
 
   getCountries(): void {
-    // TODO: replace slice with pagination
     this.countryService.getCountries().subscribe(countries => {
       this.countries = countries;
       this.numberOfCountries = countries.length;

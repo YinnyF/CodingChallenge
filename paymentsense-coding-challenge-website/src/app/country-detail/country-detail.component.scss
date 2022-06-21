@@ -6,19 +6,17 @@ $border-grey: #c1c1c1;
 
 .country-detail {
     max-width: 400px;
-    border: 1px solid $border-grey;
+    border-top: 1px solid $border-grey;
+    border-left: 1px solid $border-grey;
     border-radius: 0;
     box-shadow: none;
+    // height: 100%;
 }
 
 .mat-card-header {
     display: flex;
     justify-content: space-between;
 }
-
-// .close-icon {
-//     justify-self: end;
-// }
 
 .flag-container {
     width: 100%;
