@@ -13,6 +13,10 @@ export class CountriesComponent implements OnInit {
   numberOfCountries: number;
 
   selectedCountry?: Country;
+  countriesToDisplay: Country[] = [];
+  currentPage: number = 1;
+  pageSize: number = 10;
+  totalPages: number;
 
   // selectedCountryId?: number;
 
@@ -22,6 +26,7 @@ export class CountriesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCountries();
+    this.countriesToDisplay = this.paginate(this.currentPage, this.pageSize)
   }
 
   onSelect(country: Country, i: number): void {
@@ -35,7 +40,27 @@ export class CountriesComponent implements OnInit {
     this.countryService.getCountries().subscribe(countries => {
       this.countries = countries/*.slice(0, 5)*/;
       this.numberOfCountries = countries.length;
-    });
+      this.totalPages = Math.ceil(this.numberOfCountries / this.pageSize);
+    })
+  }
+
+  onGoTo(page: number): void {
+    this.currentPage = page
+    this.countriesToDisplay = this.paginate(this.currentPage, this.pageSize)
+  }
+
+  onNext(page: number): void {
+    this.currentPage = page + 1;
+    this.countriesToDisplay = this.paginate(this.currentPage, this.pageSize)
+  }
+
+  onPrevious(page: number): void {
+    this.currentPage = page - 1;
+    this.countriesToDisplay = this.paginate(this.currentPage, this.pageSize)
+  }
+
+  public paginate(currentPage: number, pageSize: number): Country[] {
+    return this.countries.slice((currentPage - 1) * pageSize, pageSize)
   }
 
   unselectCountry() {
