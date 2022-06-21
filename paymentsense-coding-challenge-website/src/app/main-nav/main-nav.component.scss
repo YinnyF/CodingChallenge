@@ -1,3 +1,5 @@
+$border-grey: #c1c1c1;
+
 .sidenav-container {
   height: 100%;
 }
@@ -8,12 +10,16 @@
 
 .sidenav .mat-toolbar {
   background: inherit;
+  border-bottom: 1px solid $border-grey;
 }
 
 .mat-toolbar.mat-primary {
+  background: white;
+  color: black;
   position: sticky;
   top: 0;
   z-index: 1;
+  border-bottom: 1px solid $border-grey;
 }
 
 .spacer {

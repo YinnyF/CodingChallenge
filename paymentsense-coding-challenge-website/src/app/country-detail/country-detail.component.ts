@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Country } from '../Country';
 
 @Component({
@@ -9,6 +9,8 @@ import { Country } from '../Country';
 export class CountryDetailComponent implements OnInit {
 
   @Input() country?: Country;
+
+  @Output() onClose = new EventEmitter<boolean>();
   
   constructor() { }
 
@@ -16,8 +18,7 @@ export class CountryDetailComponent implements OnInit {
   }
 
   closeCountryDetail() {
-    console.log("close country detail clicked!");
-    // TODO: Remove selectedCountry in Country Component?
+    // console.log("close country detail clicked!");
+    this.onClose.emit();
   }
-
 }

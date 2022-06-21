@@ -1,38 +1,42 @@
-<mat-expansion-panel expanded>
-  <mat-expansion-panel-header>
-    <mat-panel-title>
-      <h2>Countries</h2>
-    </mat-panel-title>
-  </mat-expansion-panel-header>
+<app-countries-description></app-countries-description>
 
-    <ul class="countries">
-        <li *ngFor="let country of countries">
-            <div [id]="country" [class.selected-country]="country === selectedCountry" (click)="onSelect(country)">
-                Country {{country.name}}
-            </div>
-        </li>
-    </ul>
+<div class="countries-container">
+    <mat-expansion-panel expanded>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+            <h2>Countries ({{numberOfCountries}})</h2>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
 
-    <!-- TODO: page navigation here? -->
+        <ul class="countries-list">
+            <li *ngFor="let country of countries" class="country" [class.selected-country]="country === selectedCountry">
+                <div  (click)="onSelect(country)">
+                    {{country.name}}
+                </div>
+            </li>
+        </ul>
 
-    <!-- <app-pagination
-        [currentPage]="currentPage"
-        [totalPages]="totalPages"
-        (next)="onNext($event)"
-        (previous)="onPrevious($event)"
-    ></app-pagination> -->
+        <!-- TODO: page navigation here? -->
+
+        <!-- <app-pagination
+            [currentPage]="currentPage"
+            [totalPages]="totalPages"
+            (next)="onNext($event)"
+            (previous)="onPrevious($event)"
+        ></app-pagination> -->
 
 
-    <!-- <mat-action-row>
-        <button mat-button color="primary" (click)="onPrevious()">Previous</button>
-        <button mat-button color="primary" (click)="onNext()">Next</button>
-    </mat-action-row> -->
+        <!-- <mat-action-row>
+            <button mat-button color="primary" (click)="onPrevious()">Previous</button>
+            <button mat-button color="primary" (click)="onNext()">Next</button>
+        </mat-action-row> -->
 
-    <!-- <mat-paginator [length]="countryCount"
-        [pageSize]="10"
-        [pageSizeOptions]="[5, 10, 25, 100]"
-        aria-label="Select page">
-    </mat-paginator> -->
-</mat-expansion-panel>
+        <!-- <mat-paginator [length]="countryCount"
+            [pageSize]="10"
+            [pageSizeOptions]="[5, 10, 25, 100]"
+            aria-label="Select page">
+        </mat-paginator> -->
+    </mat-expansion-panel>
 
-<app-country-detail [country]="selectedCountry"></app-country-detail>
+    <app-country-detail [country]="selectedCountry" class="country-detail" (onClose)="unselectCountry()"></app-country-detail>
+</div>

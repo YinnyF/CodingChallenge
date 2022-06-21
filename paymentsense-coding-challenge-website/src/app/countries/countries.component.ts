@@ -9,7 +9,8 @@ import { PaymentsenseCodingChallengeApiService as CountryService } from '../serv
 })
 export class CountriesComponent implements OnInit {
 
-  countries : Country[] = []
+  countries : Country[] = [];
+  numberOfCountries: number;
 
   selectedCountry?: Country;
 
@@ -31,7 +32,13 @@ export class CountriesComponent implements OnInit {
 
   getCountries(): void {
     // TODO: replace slice with pagination
-    this.countryService.getCountries().subscribe(countries => this.countries = countries.slice(1, 5));
+    this.countryService.getCountries().subscribe(countries => {
+      this.countries = countries/*.slice(0, 5)*/;
+      this.numberOfCountries = countries.length;
+    });
   }
 
+  unselectCountry() {
+    this.selectedCountry = null;
+  }
 }

@@ -20,6 +20,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatExpansionModule } from '@angular/material';
 // import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatCardModule } from '@angular/material';
+import { CountriesDescriptionComponent } from './countries-description/countries-description.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,7 @@ import { MatExpansionModule } from '@angular/material';
     CountryDetailComponent,
     HealthCheckComponent,
     MainNavComponent,
+    CountriesDescriptionComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,6 +45,7 @@ import { MatExpansionModule } from '@angular/material';
     MatSidenavModule,
     MatListModule,
     MatExpansionModule,
+    MatCardModule
     // MatPaginatorModule
   ],
   providers: [PaymentsenseCodingChallengeApiService],
