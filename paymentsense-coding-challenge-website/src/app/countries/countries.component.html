@@ -9,7 +9,7 @@
         </mat-expansion-panel-header>
 
         <ul class="countries-list">
-            <li *ngFor="let country of countries" class="country" [class.selected-country]="country === selectedCountry">
+            <li *ngFor="let country of countriesToDisplay" class="country" [class.selected-country]="country === selectedCountry">
                 <div  (click)="onSelect(country)">
                     {{country.name}}
                 </div>
@@ -19,6 +19,7 @@
     <app-pagination
         [currentPage]="currentPage"
         [totalPages]="totalPages"
+        (goTo)="onGoTo($event)"
         (next)="onNext($event)"
         (previous)="onPrevious($event)"
     ></app-pagination>
