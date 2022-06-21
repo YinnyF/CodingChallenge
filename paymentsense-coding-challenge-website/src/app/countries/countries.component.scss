@@ -1,15 +1,22 @@
-$primary-color: black;
-$secondary-color: teal;
-$tertiary-color: grey;
-
 .countries {
-    margin: 0 0 2px 0;
+    // margin: 0 0 2px 0;
     list-style-type: none;
     padding: 0;
-    width: 20em;
+    // width: 20em;
+    // height: 500px;
   }
 
 .selected-country {
     background-color: black;
     color: white;
+}
+
+.mat-expansion-panel:not([class*='mat-elevation-z']) {
+  box-shadow: none;
+  // TODO: border?
+  // border-width: 5px;
+  // border-color: black;
+
+  // TODO: it should not scroll...
+  // height: 100%;
 }

@@ -9,15 +9,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CountriesComponent } from './countries/countries.component';
 import { CountryDetailComponent } from './country-detail/country-detail.component';
+import { HealthCheckComponent } from './health-check/health-check.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
-import { HealthCheckComponent } from './health-check/health-check.component';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { MatExpansionModule } from '@angular/material';
+// import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,7 @@ import { MatListModule } from '@angular/material/list';
     CountriesComponent,
     CountryDetailComponent,
     HealthCheckComponent,
-    MainNavComponent
+    MainNavComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,7 +40,9 @@ import { MatListModule } from '@angular/material/list';
     LayoutModule,
     MatButtonModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    MatExpansionModule,
+    // MatPaginatorModule
   ],
   providers: [PaymentsenseCodingChallengeApiService],
   bootstrap: [AppComponent]
