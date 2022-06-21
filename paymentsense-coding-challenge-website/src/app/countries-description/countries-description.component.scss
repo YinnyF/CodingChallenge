@@ -1,0 +1,17 @@
+$background-grey: #f5f5f5;
+$black: #262626;
+$grey-text: #666666;
+$teal-text: #00857d;
+$border-grey: #c1c1c1;
+
+.countries-description {
+    margin: 25px;
+    box-shadow: none;
+    // border: 1px solid $border-grey;
+    background-color: $background-grey;
+}
+
+a {
+    color: $teal-text;
+    text-decoration: none;
+}
