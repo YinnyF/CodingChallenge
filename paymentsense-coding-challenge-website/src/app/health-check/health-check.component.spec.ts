@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { HealthCheckComponent } from './health-check.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
+import { PaymentsenseCodingChallengeApiService } from '../services';
+import { MockPaymentsenseCodingChallengeApiService } from '../testing/mock-paymentsense-coding-challenge-api.service';
 
 describe('HealthCheckComponent', () => {
   let component: HealthCheckComponent;
@@ -8,7 +11,15 @@ describe('HealthCheckComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HealthCheckComponent ]
+      imports: [
+        FontAwesomeModule
+      ],
+      declarations: [ 
+        HealthCheckComponent
+      ],
+      providers: [
+        { provide: PaymentsenseCodingChallengeApiService, useClass: MockPaymentsenseCodingChallengeApiService }
+      ]
     })
     .compileComponents();
   }));
@@ -21,5 +32,14 @@ describe('HealthCheckComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it(`should have as title 'Paymentsense Coding Challenge'`, () => {
+    expect(component.title).toEqual('Paymentsense Coding Challenge!');
+  });
+
+  it('should render title in a h1 tag', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('h1').textContent).toContain('Paymentsense Coding Challenge!');
   });
 });
