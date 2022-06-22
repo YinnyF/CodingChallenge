@@ -1,49 +1,49 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 
 @Component({
-  selector: 'app-pagination',
-  templateUrl: './pagination.component.html',
-  styleUrls: ['./pagination.component.scss']
+	selector: 'app-pagination',
+	templateUrl: './pagination.component.html',
+	styleUrls: ['./pagination.component.scss']
 })
 export class PaginationComponent implements OnChanges {
-  @Input() currentPage: number = 0
-  @Input() totalPages: number = 0
+	@Input() currentPage: number = 0
+	@Input() totalPages: number = 0
 
-  @Output() goTo: EventEmitter<number> = new EventEmitter<number>()
-  @Output() next: EventEmitter<number> = new EventEmitter<number>()
-  @Output() previous: EventEmitter<number> = new EventEmitter<number>()
+	@Output() goTo: EventEmitter<number> = new EventEmitter<number>()
+	@Output() next: EventEmitter<number> = new EventEmitter<number>()
+	@Output() previous: EventEmitter<number> = new EventEmitter<number>()
 
-  public pages: number[] = []
+	public pages: number[] = []
 
-  constructor() { }
+	constructor() { }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (
-      (changes.currentPage && changes.currentPage.currentValue) ||
-      (changes.totalPages && changes.totalPages.currentValue)
-    ) {
-      this.pages = this.getPages(this.currentPage, this.totalPages)
-    }
-  }
+	ngOnChanges(changes: SimpleChanges): void {
+		if (
+			(changes.currentPage && changes.currentPage.currentValue) ||
+			(changes.totalPages && changes.totalPages.currentValue)
+		) {
+			this.pages = this.getPages(this.currentPage, this.totalPages)
+		}
+	}
 
-  public onGoTo(page: number): void {
-    this.goTo.emit(page)
-  }
+	public onGoTo(page: number): void {
+		this.goTo.emit(page)
+	}
 
-  public onNext(): void {
-    this.next.emit(this.currentPage)
-  }
+	public onNext(): void {
+		this.next.emit(this.currentPage)
+	}
 
-  public onPrevious(): void {
-    this.previous.emit(this.currentPage)
-  }
+	public onPrevious(): void {
+		this.previous.emit(this.currentPage)
+	}
 
-  private getPages(currentPage: number, totalPages: number): number[] {
-      var pages = [];
-      for (var i = 1; i <= totalPages; i++) {
-        pages.push(i);
-      }
-      return pages;
-  }
+	private getPages(currentPage: number, totalPages: number): number[] {
+		var pages = [];
+		for (var i = 1; i <= totalPages; i++) {
+			pages.push(i);
+		}
+		return pages;
+	}
 
 }
