@@ -21,7 +21,7 @@ class MockHostComponent {
   public title: string;
 }
 
-fdescribe('MainNavComponent', () => {
+describe('MainNavComponent', () => {
   let mockHostComponent: MockHostComponent;
   let mockHostFixture: ComponentFixture<MockHostComponent>;
 
