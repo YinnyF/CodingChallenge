@@ -1,33 +1,29 @@
 <mat-card *ngIf="country" class="country-detail">
-    
+
     <mat-card-header>
-        <mat-card-title>{{country.name | titlecase}}</mat-card-title>
+        <mat-card-title id="countryName">{{country.name | titlecase}}</mat-card-title>
         <mat-icon class="close-icon" (click)="closeCountryDetail()">close</mat-icon>
     </mat-card-header>
 
     <!-- <div class="flag-container"> -->
-        <img mat-card-image
-            class="flag"
-            src="{{country.flag}}"
-            alt="{{country.name}} flag"
-        />
+    <img mat-card-image class="flag" src="{{country.flag}}" alt="{{country.name}} flag" />
     <!-- </div> -->
 
     <mat-card-content>
         <h3>Capital</h3>
-        <p>{{country.capital}}</p>
+        <p id="capital">{{country.capital}}</p>
 
         <h3>Population</h3>
-        <p>{{country.population | number }}</p>
+        <p id="population">{{country.population | number }}</p>
 
         <h3>Languages</h3>
-        <div *ngFor="let language of country.languages">
-            <p>{{language.name}}</p>
+        <div *ngFor="let language of country.languages; let i=index">
+            <p [id]="'language-' + i">{{language.name}}</p>
         </div>
 
         <h3>Currencies</h3>
-        <div *ngFor="let currency of country.currencies">
-            <p>{{currency.name}} ({{currency.symbol}})</p>
+        <div *ngFor="let currency of country.currencies; let i=index">
+            <p [id]="'currency-' + i">{{currency.name}} ({{currency.symbol}})</p>
         </div>
     </mat-card-content>
 
