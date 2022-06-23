@@ -28,10 +28,8 @@ export class CountriesComponent implements OnInit {
     this.getCountries();
   }
 
-  onSelect(country: Country, i: number): void {
-    // console.log(country.name);
+  onSelect(country: Country): void {
     this.selectedCountry = country;
-    // this.selectedCountryId = i;
   }
 
   getCountries(): void {
@@ -61,7 +59,7 @@ export class CountriesComponent implements OnInit {
     this.countriesToDisplay = this.paginate(this.currentPage, this.pageSize)
   }
 
-  public paginate(currentPage: number, pageSize: number): Country[] {
+  paginate(currentPage: number, pageSize: number): Country[] {
     // console.log(this.countries.slice((currentPage - 1) * pageSize , (((currentPage - 1) * pageSize) + pageSize)))
     return this.countries.slice((currentPage - 1) * pageSize , (((currentPage - 1) * pageSize) + pageSize))
   }

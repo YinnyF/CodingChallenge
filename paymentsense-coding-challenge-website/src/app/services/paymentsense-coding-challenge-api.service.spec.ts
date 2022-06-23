@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { of } from "rxjs";
 import { MOCKCOUNTRIES } from '../testing/mock-countries';
 
-fdescribe('CountryService', () => {
+describe('CountryService', () => {
   let countryService: CountryService;
   let httpClientSpy: jasmine.SpyObj<HttpClient>;
   // https://angular.io/guide/testing-services#testing-http-services

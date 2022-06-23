@@ -10,7 +10,7 @@
             </mat-expansion-panel-header>
 
             <ul class="countries-list">
-                <li *ngFor="let country of countriesToDisplay" class="country" [class.selected-country]="country === selectedCountry">
+                <li *ngFor="let country of countriesToDisplay; let i=index" class="country" [class.selected-country]="country === selectedCountry" [id]="'country-' + i">
                     <div  (click)="onSelect(country)">
                         {{country.name}}
                     </div>
