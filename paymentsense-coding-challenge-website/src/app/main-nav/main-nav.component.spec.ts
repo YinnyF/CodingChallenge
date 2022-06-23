@@ -1,40 +1,66 @@
-import { LayoutModule } from '@angular/cdk/layout';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, Input } from '@angular/core';
+import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatToolbarModule } from '@angular/material/toolbar';
+
+import { LayoutModule } from '@angular/cdk/layout';
 
 import { MainNavComponent } from './main-nav.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
-describe('MainNavComponent', () => {
-  let component: MainNavComponent;
-  let fixture: ComponentFixture<MainNavComponent>;
+@Component({
+  selector: 'mock-host-component',
+  template: `<app-main-nav [title]='title'></app-main-nav>`
+})
+class MockHostComponent {
+  @Input()
+  public title: string;
+}
+
+fdescribe('MainNavComponent', () => {
+  let mockHostComponent: MockHostComponent;
+  let mockHostFixture: ComponentFixture<MockHostComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [MainNavComponent],
+      declarations: [
+        MainNavComponent,
+        MockHostComponent
+      ],
       imports: [
         NoopAnimationsModule,
         LayoutModule,
-        MatButtonModule,
-        MatIconModule,
-        MatListModule,
         MatSidenavModule,
         MatToolbarModule,
+        MatListModule,
+        MatIconModule,
+        MatButtonModule,
       ]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MainNavComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    mockHostFixture = TestBed.createComponent(MockHostComponent);
+    mockHostComponent = mockHostFixture.componentInstance;
+    mockHostComponent.title = "Fake Title";
+    mockHostFixture.detectChanges();
   });
 
-  it('should compile', () => {
-    expect(component).toBeTruthy();
-  });
+  it('should have a title', () => {
+    let titleDe = mockHostFixture.debugElement.query(By.css('#nav-title'));
+    let titleEl = titleDe.nativeElement;
+    expect(titleEl.textContent).toEqual(mockHostComponent.title);
+  })
+
+  it('should display 2 links', () => {
+    let navDe = mockHostFixture.debugElement;
+    let navEl = navDe.nativeElement;
+
+    expect(navEl.querySelectorAll('a').length).toEqual(2);
+  })
+
 });
