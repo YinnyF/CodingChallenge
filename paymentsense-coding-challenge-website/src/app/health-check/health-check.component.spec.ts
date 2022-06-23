@@ -1,9 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { HealthCheckComponent } from './health-check.component';
+
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
-import { PaymentsenseCodingChallengeApiService } from '../services';
-import { MockPaymentsenseCodingChallengeApiService } from '../testing/mock-paymentsense-coding-challenge-api.service';
+import { HealthCheckComponent } from './health-check.component';
+import { PaymentsenseCodingChallengeApiService as CountryService} from '../services';
+import { MockPaymentsenseCodingChallengeApiService as MockCountryService } from '../testing/mock-paymentsense-coding-challenge-api.service';
 
 describe('HealthCheckComponent', () => {
   let component: HealthCheckComponent;
@@ -18,7 +19,7 @@ describe('HealthCheckComponent', () => {
         HealthCheckComponent
       ],
       providers: [
-        { provide: PaymentsenseCodingChallengeApiService, useClass: MockPaymentsenseCodingChallengeApiService }
+        { provide: CountryService, useClass: MockCountryService }
       ]
     })
     .compileComponents();
