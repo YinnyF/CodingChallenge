@@ -26,7 +26,7 @@ class MockHostComponent {
   public country: Country;
 }
 
-fdescribe('CountryDetailComponent', () => {
+describe('CountryDetailComponent', () => {
   let mockHostComponent: MockHostComponent;
   let mockHostFixture: ComponentFixture<MockHostComponent>;
 

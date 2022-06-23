@@ -19,7 +19,7 @@ export interface Country {
 
 }
 
-interface Currency {
+export interface Currency {
     code: string;
 
     name: string;
@@ -27,6 +27,6 @@ interface Currency {
     symbol: string;
 }
 
-interface Language {
+export interface Language {
     name: string;
 }
