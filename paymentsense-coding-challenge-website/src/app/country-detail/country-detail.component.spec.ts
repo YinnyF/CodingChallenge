@@ -6,6 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { Component, Input } from '@angular/core';
 import { Country, Currency, Language } from '../country';
+import { componentFactoryName } from '@angular/compiler';
 
 const getCountry = () => <Country>{
   name: "Peru",
@@ -62,8 +63,8 @@ describe('CountryDetailComponent', () => {
     expect(countryEl.textContent).toBe(mockHostComponent.country.name);
   });
 
-  xit('should emit ?? when close button is clicked', () => {
-
+  xit('#closeCountryDetail should emit onClose event', () => {
+    
   })
 
   it('should display the flag', () => {

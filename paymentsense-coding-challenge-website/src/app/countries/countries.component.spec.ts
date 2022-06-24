@@ -65,11 +65,17 @@ describe('CountriesComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should display "Countries (3)" as headline', () => {
-    expect(fixture.nativeElement.querySelector('h2').textContent).toEqual('Countries (3)');
+  it('should display "Countries (5)" as headline', () => {
+    // TODO: don't hardcode the number
+    expect(fixture.nativeElement.querySelector('h2').textContent).toEqual('Countries (5)');
   })
 
   it('should display the country name', () => {
-    expect(fixture.debugElement.query(By.css('#country-0')).nativeElement.textContent).toContain("United Kingdom of Great Britain and Northern Ireland");
+    // TODO: don't hardcode the first country name
+    expect(fixture.debugElement.query(By.css('#country-0')).nativeElement.textContent).toContain("Afghanistan");
+  })
+
+  xit('should raise selected event when clicked', () => {
+
   })
 });
