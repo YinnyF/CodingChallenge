@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { of, Observable } from 'rxjs';
 import { Country } from '../country';
+import { MOCKCOUNTRIES } from './mock-countries';
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +12,6 @@ export class MockPaymentsenseCodingChallengeApiService {
   }
 
   public getCountries(): Observable<Country[]> {
-    return of(
-      [
-        { name: "United Kingdom of Great Britain and Northern Ireland", alpha2Code: "GB" },
-        { name: "Peru", alpha2Code: "PE" },
-        { name: "United States of America", alpha2Code: "US"},
-      ] as Country[]
-    );
+    return of(MOCKCOUNTRIES);
   }
 }
