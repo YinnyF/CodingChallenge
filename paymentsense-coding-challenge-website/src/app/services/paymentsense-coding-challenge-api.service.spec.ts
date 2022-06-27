@@ -1,6 +1,6 @@
 import { PaymentsenseCodingChallengeApiService as CountryService } from "./paymentsense-coding-challenge-api.service";
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { of } from "rxjs";
+import { of, throwError } from "rxjs";
 import { MOCKCOUNTRIES } from '../testing/mock-countries';
 
 describe('CountryService', () => {
@@ -44,7 +44,7 @@ describe('CountryService', () => {
     expect(httpClientSpy.get.calls.count()).toBe(1);
   })
 
-  xit('should return an error when the server returns a 404', (done: DoneFn) => {
+  it('should return an error when the server returns a 404', (done: DoneFn) => {
 
     const errorResponse = new HttpErrorResponse({
       error: 'test 404 error',
@@ -52,12 +52,13 @@ describe('CountryService', () => {
       statusText: 'Not Found'
     });
   
-    httpClientSpy.get.and.returnValue(of(errorResponse));
+    // TODO: https://stackoverflow.com/a/59325387
+    httpClientSpy.get.and.returnValue(throwError(errorResponse));
   
     countryService.getCountries().subscribe({
       next: countries => done.fail('expected an error, not countries'),
       error: error  => {
-        expect(error.message).toContain('test 404 error');
+        expect(error.message).toContain(errorResponse.message);
         done();
       }
     });
