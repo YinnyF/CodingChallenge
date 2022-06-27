@@ -10,20 +10,15 @@
             </mat-expansion-panel-header>
 
             <ul class="countries-list">
-                <li *ngFor="let country of countriesToDisplay; let i=index" class="country" [class.selected-country]="country === selectedCountry" [id]="'country-' + i">
-                    <div  (click)="onSelect(country)">
+                <li *ngFor="let country of countriesToDisplay; let i=index" class="country"
+                    [class.selected-country]="country === selectedCountry" id="country-{{i}}">
+                    <div (click)="onSelect(country)">
                         {{country.name}}
                     </div>
                 </li>
             </ul>
 
-            <app-pagination
-                [currentPage]="currentPage"
-                [totalPages]="totalPages"
-                (goTo)="onGoTo($event)"
-                (next)="onNext($event)"
-                (previous)="onPrevious($event)"
-            ></app-pagination>
+            <app-pagination [totalPages$]="totalPages$" (goTo)="onGoTo($event)"></app-pagination>
 
             <!-- <mat-action-row>
                 <button mat-button color="primary" (click)="onPrevious()">Previous</button>

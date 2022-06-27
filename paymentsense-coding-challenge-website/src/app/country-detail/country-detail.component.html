@@ -18,12 +18,12 @@
 
         <h3>Languages</h3>
         <div *ngFor="let language of country.languages; let i=index">
-            <p [id]="'language-' + i">{{language.name}}</p>
+            <p id="language-{{i}}">{{language.name}}</p>
         </div>
 
         <h3>Currencies</h3>
         <div *ngFor="let currency of country.currencies; let i=index">
-            <p [id]="'currency-' + i">{{currency.name}} ({{currency.symbol}})</p>
+            <p id="currency-{{i}}">{{currency.name}} ({{currency.symbol}})</p>
         </div>
     </mat-card-content>
 

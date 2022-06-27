@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map, take, tap } from 'rxjs/operators';
 import { Country } from '../country';
 import { PaymentsenseCodingChallengeApiService as CountryService } from '../services';
 
@@ -14,9 +16,9 @@ export class CountriesComponent implements OnInit {
 
   selectedCountry?: Country;
   countriesToDisplay: Country[] = [];
-  currentPage = 1;
+
   pageSize = 10;
-  totalPages: number;
+  totalPages$: Observable<number> = new Observable<number>();
 
   // selectedCountryId?: number;
 
@@ -33,35 +35,25 @@ export class CountriesComponent implements OnInit {
   }
 
   getCountries(): void {
-    this.countryService.getCountries().subscribe(countries => {
-      this.countries = countries;
-      this.numberOfCountries = countries.length;
-      this.totalPages = Math.ceil(this.numberOfCountries / this.pageSize);
-      this.countriesToDisplay = this.getCountriesToDisplay();
-    });
+    this.totalPages$ = this.countryService.getCountries().pipe(
+      take(1),
+      tap(countries => {
+        this.countries = countries;
+        this.updateCountriesToDisplay(1);
+      }),
+      map(countries => {
+        this.numberOfCountries = countries.length;
+        return Math.ceil(this.numberOfCountries / this.pageSize);
+      }));
   }
 
   onGoTo(page: number): void {
-    this.currentPage = page;
-    // console.log(this.currentPage)
-    this.countriesToDisplay = this.getCountriesToDisplay();
+    this.updateCountriesToDisplay(page);
   }
 
-  onNext(page: number): void {
-    this.currentPage = page + 1;
-    // console.log(this.currentPage)
-    this.countriesToDisplay = this.getCountriesToDisplay();
-  }
-
-  onPrevious(page: number): void {
-    this.currentPage = page - 1;
-    // console.log(this.currentPage)
-    this.countriesToDisplay = this.getCountriesToDisplay();
-  }
-
-  getCountriesToDisplay(): Country[] {
-    const pageStart = (this.currentPage - 1) * this.pageSize;
-    return this.countries.slice(pageStart, pageStart + this.pageSize);
+  updateCountriesToDisplay(currentPage: number): void {
+    const pageStart = (currentPage - 1) * this.pageSize;
+    this.countriesToDisplay = this.countries.slice(pageStart, pageStart + this.pageSize);
   }
 
   unselectCountry() {
