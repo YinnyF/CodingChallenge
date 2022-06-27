@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "Paymentsense.Coding.Challenge.Api": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "launchUrl": "api/PaymentsenseCodingChallenge",
+      "applicationUrl": "https://localhost:65129;http://localhost:65130"
+    }
+  }
+}
