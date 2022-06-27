@@ -5,7 +5,7 @@ import { SimpleChange } from '@angular/core';
 
 // @Component({
 //   selector: 'mock-host-component',
-//   template: `<app-pagination 
+//   template: `<app-pagination
 //     [currentPage]="'1'"
 //     [totalPages]="'5'"
 //     (goTo)="onGoTo($event)"
@@ -69,26 +69,26 @@ describe('PaginationComponent', () => {
   it('#onGoTo should emit current page number', () => {
     fixture.detectChanges();
 
-    let page = 2;
+    const page = 2;
 
     component.goTo.subscribe((res) => {
       expect(res).toBe(page);
-    })
+    });
 
     component.onGoTo(page);
-  })
+  });
 
   it('#onNext should emit current page number', () => {
     component.currentPage = 2;
     fixture.detectChanges();
 
-    // TODO: test needs to wait - google: async tests in jasmine. 
+    // TODO: test needs to wait - google: async tests in jasmine.
     component.next.subscribe((res) => {
       expect(res).toBe(component.currentPage);
-    })
+    });
 
     component.onNext();
-  })
+  });
 
   it('#onPrevious should emit current page number', () => {
     component.currentPage = 2;
@@ -96,31 +96,31 @@ describe('PaginationComponent', () => {
 
     component.previous.subscribe((res) => {
       expect(res).toBe(component.currentPage);
-    })
+    });
 
     component.onPrevious();
-  })
+  });
 
   it('should display the correct number of pages', () => {
     fixture.detectChanges();
 
     expect(fixture.nativeElement.querySelectorAll('a').length).toEqual(component.totalPages);
-  })
+  });
 
   it('should render correct pages when totalPages changes', () => {
     fixture.detectChanges();
     expect(fixture.nativeElement.querySelectorAll('a').length).toBe(component.totalPages);
-    let prevTotalPages = component.totalPages;
-    let currentTotalPages = 20;
+    const prevTotalPages = component.totalPages;
+    const currentTotalPages = 20;
 
     component.totalPages = currentTotalPages;
     // trigger ngOnChanges
     component.ngOnChanges({
       totalPages: new SimpleChange(prevTotalPages, currentTotalPages, false),
     });
-    
+
     fixture.detectChanges();
-    
+
     expect(fixture.nativeElement.querySelectorAll('a').length).toBe(currentTotalPages);
-  })
+  });
 });

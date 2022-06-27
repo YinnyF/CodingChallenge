@@ -15,7 +15,7 @@ describe('HealthCheckComponent', () => {
       imports: [
         FontAwesomeModule
       ],
-      declarations: [ 
+      declarations: [
         HealthCheckComponent
       ],
       providers: [

@@ -1,6 +1,6 @@
-import { PaymentsenseCodingChallengeApiService as CountryService } from "./paymentsense-coding-challenge-api.service";
+import { PaymentsenseCodingChallengeApiService as CountryService } from './paymentsense-coding-challenge-api.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { of, throwError } from "rxjs";
+import { of, throwError } from 'rxjs';
 import { MOCKCOUNTRIES } from '../testing/mock-countries';
 
 describe('CountryService', () => {
@@ -13,10 +13,10 @@ describe('CountryService', () => {
       'get'
     ]);
     countryService = new CountryService(httpClientSpy);
-  })
+  });
 
   it('can return health status (HttpClient called once)', (done: DoneFn) => {
-    const expectedString: string = "Healthy";
+    const expectedString = 'Healthy';
     httpClientSpy.get.and.returnValue(of(expectedString));
 
     countryService.getHealth().subscribe({
@@ -25,10 +25,10 @@ describe('CountryService', () => {
         done();
       },
       error: done.fail
-    })
+    });
 
     expect(httpClientSpy.get.calls.count()).toBe(1);
-  })
+  });
 
   it('can return expected countries (HttpClient called once)', (done: DoneFn) => {
     httpClientSpy.get.and.returnValue(of(MOCKCOUNTRIES));
@@ -39,22 +39,22 @@ describe('CountryService', () => {
         done();
       },
       error: done.fail
-    })
+    });
 
     expect(httpClientSpy.get.calls.count()).toBe(1);
-  })
+  });
 
   it('should return an error when the server returns a 404', (done: DoneFn) => {
 
     const errorResponse = new HttpErrorResponse({
       error: 'test 404 error',
-      status: 404, 
+      status: 404,
       statusText: 'Not Found'
     });
-  
+
     // TODO: https://stackoverflow.com/a/59325387
     httpClientSpy.get.and.returnValue(throwError(errorResponse));
-  
+
     countryService.getCountries().subscribe({
       next: countries => done.fail('expected an error, not countries'),
       error: error  => {
@@ -63,5 +63,5 @@ describe('CountryService', () => {
       }
     });
 
-  })
-})
+  });
+});

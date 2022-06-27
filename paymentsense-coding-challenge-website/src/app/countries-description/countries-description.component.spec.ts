@@ -30,10 +30,11 @@ describe('CountriesDescriptionComponent', () => {
   });
 
   it('should display countries description', () => {
-    expect(fixture.nativeElement.querySelector('p').textContent).toEqual('Districts and small settlements outside large urban areas or the capital.');
-  })
+    expect(fixture.nativeElement.querySelector('p').textContent)
+      .toEqual('Districts and small settlements outside large urban areas or the capital.');
+  });
 
   it('should display a link', () => {
     expect(fixture.nativeElement.querySelectorAll('a').length).toEqual(1);
-  })
+  });
 });

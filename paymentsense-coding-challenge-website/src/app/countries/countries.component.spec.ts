@@ -11,11 +11,11 @@ import { Country } from '../country';
 import { MatExpansionModule } from '@angular/material';
 
 @Component({ selector: 'app-countries-description', template: '' })
-class CountriesDescriptionComponentStub {
+class CountriesDescriptionStubComponent {
 }
 
 @Component({ selector: 'app-pagination', template: '' })
-class PaginationComponentStub {
+class PaginationStubComponent {
   @Input()
   public currentPage: number;
 
@@ -28,7 +28,7 @@ class PaginationComponentStub {
 }
 
 @Component({ selector: 'app-country-detail', template: ''})
-class CountryDetailComponentStub {
+class CountryDetailStubComponent {
   @Input() country?: Country;
 }
 
@@ -38,11 +38,11 @@ describe('CountriesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ 
+      declarations: [
         CountriesComponent,
-        CountriesDescriptionComponentStub,
-        PaginationComponentStub,
-        CountryDetailComponentStub,
+        CountriesDescriptionStubComponent,
+        PaginationStubComponent,
+        CountryDetailStubComponent,
        ],
        imports: [
          BrowserAnimationsModule,
@@ -68,14 +68,14 @@ describe('CountriesComponent', () => {
   it('should display "Countries (5)" as headline', () => {
     // TODO: don't hardcode the number
     expect(fixture.nativeElement.querySelector('h2').textContent).toEqual('Countries (5)');
-  })
+  });
 
   it('should display the country name', () => {
     // TODO: don't hardcode the first country name
-    expect(fixture.debugElement.query(By.css('#country-0')).nativeElement.textContent).toContain("Afghanistan");
-  })
+    expect(fixture.debugElement.query(By.css('#country-0')).nativeElement.textContent).toContain('Afghanistan');
+  });
 
   xit('should raise selected event when clicked', () => {
 
-  })
+  });
 });

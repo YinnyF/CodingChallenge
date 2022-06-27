@@ -9,13 +9,13 @@ import { PaymentsenseCodingChallengeApiService as CountryService } from '../serv
 })
 export class CountriesComponent implements OnInit {
 
-  countries : Country[] = [];
+  countries: Country[] = [];
   numberOfCountries: number;
 
   selectedCountry?: Country;
   countriesToDisplay: Country[] = [];
-  currentPage: number = 1;
-  pageSize: number = 10;
+  currentPage = 1;
+  pageSize = 10;
   totalPages: number;
 
   // selectedCountryId?: number;
@@ -37,31 +37,31 @@ export class CountriesComponent implements OnInit {
       this.countries = countries;
       this.numberOfCountries = countries.length;
       this.totalPages = Math.ceil(this.numberOfCountries / this.pageSize);
-      this.countriesToDisplay = this.getCountriesToDisplay()
-    })
+      this.countriesToDisplay = this.getCountriesToDisplay();
+    });
   }
 
   onGoTo(page: number): void {
-    this.currentPage = page
+    this.currentPage = page;
     // console.log(this.currentPage)
-    this.countriesToDisplay = this.getCountriesToDisplay()
+    this.countriesToDisplay = this.getCountriesToDisplay();
   }
 
   onNext(page: number): void {
     this.currentPage = page + 1;
     // console.log(this.currentPage)
-    this.countriesToDisplay = this.getCountriesToDisplay()
+    this.countriesToDisplay = this.getCountriesToDisplay();
   }
 
   onPrevious(page: number): void {
     this.currentPage = page - 1;
     // console.log(this.currentPage)
-    this.countriesToDisplay = this.getCountriesToDisplay()
+    this.countriesToDisplay = this.getCountriesToDisplay();
   }
 
   getCountriesToDisplay(): Country[] {
-    var pageStart = (this.currentPage - 1) * this.pageSize;
-    return this.countries.slice(pageStart, pageStart + this.pageSize)
+    const pageStart = (this.currentPage - 1) * this.pageSize;
+    return this.countries.slice(pageStart, pageStart + this.pageSize);
   }
 
   unselectCountry() {

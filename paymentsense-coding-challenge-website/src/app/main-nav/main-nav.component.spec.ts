@@ -13,7 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector: 'mock-host-component',
+  selector: 'app-mock-host-component',
   template: `<app-main-nav [title]='title'></app-main-nav>`
 })
 class MockHostComponent {
@@ -46,21 +46,21 @@ describe('MainNavComponent', () => {
   beforeEach(() => {
     mockHostFixture = TestBed.createComponent(MockHostComponent);
     mockHostComponent = mockHostFixture.componentInstance;
-    mockHostComponent.title = "Fake Title";
+    mockHostComponent.title = 'Fake Title';
     mockHostFixture.detectChanges();
   });
 
   it('should have a title', () => {
-    let titleDe = mockHostFixture.debugElement.query(By.css('#nav-title'));
-    let titleEl = titleDe.nativeElement;
+    const titleDe = mockHostFixture.debugElement.query(By.css('#nav-title'));
+    const titleEl = titleDe.nativeElement;
     expect(titleEl.textContent).toEqual(mockHostComponent.title);
-  })
+  });
 
   it('should display 2 links', () => {
-    let navDe = mockHostFixture.debugElement;
-    let navEl = navDe.nativeElement;
+    const navDe = mockHostFixture.debugElement;
+    const navEl = navDe.nativeElement;
 
     expect(navEl.querySelectorAll('a').length).toEqual(2);
-  })
+  });
 
 });

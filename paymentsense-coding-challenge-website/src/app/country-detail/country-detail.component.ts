@@ -10,8 +10,8 @@ export class CountryDetailComponent implements OnInit {
 
   @Input() country?: Country;
 
-  @Output() onClose = new EventEmitter<boolean>();
-  
+  @Output() close = new EventEmitter<boolean>();
+
   constructor() { }
 
   ngOnInit() {
@@ -19,6 +19,6 @@ export class CountryDetailComponent implements OnInit {
 
   closeCountryDetail() {
     // console.log("close country detail clicked!");
-    this.onClose.emit();
+    this.close.emit();
   }
 }

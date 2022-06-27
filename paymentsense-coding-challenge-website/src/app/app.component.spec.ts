@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 
 @Component({ selector: 'app-main-nav', template: '' })
-class MainNavComponentStub {
+class MainNavStubComponent {
 }
 
 describe('AppComponent', () => {
@@ -15,7 +15,7 @@ describe('AppComponent', () => {
       ],
       declarations: [
         AppComponent,
-        MainNavComponentStub
+        MainNavStubComponent
       ]
     }).compileComponents();
   }));

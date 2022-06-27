@@ -1,5 +1,3 @@
-import { logging } from "protractor";
-
 export interface Country {
     name: string;
 

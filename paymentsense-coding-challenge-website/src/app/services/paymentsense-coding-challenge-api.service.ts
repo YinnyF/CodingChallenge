@@ -13,7 +13,7 @@ export class PaymentsenseCodingChallengeApiService {
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  }
+  };
 
   constructor(
     private httpClient: HttpClient
@@ -24,7 +24,7 @@ export class PaymentsenseCodingChallengeApiService {
   }
 
   public getCountries(): Observable<Country[]> {
-    return this.httpClient.get<Country[]>(this.baseUrl + '/api/PaymentsenseCodingChallenge')
+    return this.httpClient.get<Country[]>(this.baseUrl + '/api/PaymentsenseCodingChallenge');
   }
 
 }

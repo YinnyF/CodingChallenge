@@ -6,20 +6,19 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { Component, Input } from '@angular/core';
 import { Country, Currency, Language } from '../country';
-import { componentFactoryName } from '@angular/compiler';
 
-const getCountry = () => <Country>{
-  name: "Peru",
-  alpha2Code: "PE",
-  capital: "Lima",
-  population: "32971846" as unknown as bigint,
+const getCountry = () => <Country> {
+  name: 'Peru',
+  alpha2Code: 'PE',
+  capital: 'Lima',
+  population: '32971846' as unknown as bigint,
   numericCode: 5,
-  currencies: [{ code: "",name: "Peruvian sol", symbol: "S/." }] as Currency[],
-  languages: [{ name: "Spanish" }] as Language[],
-  flag: "https://flagcdn.com/pe.svg",
-}
+  currencies: [{ code: '', name: 'Peruvian sol', symbol: 'S/.' }] as Currency[],
+  languages: [{ name: 'Spanish' }] as Language[],
+  flag: 'https://flagcdn.com/pe.svg',
+};
 @Component({
-  selector: 'mock-host-component',
+  selector: 'app-mock-host-component',
   template: `<app-country-detail [country]="country"></app-country-detail>`
 })
 class MockHostComponent {
@@ -33,7 +32,7 @@ describe('CountryDetailComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ 
+      declarations: [
         CountryDetailComponent,
         MockHostComponent,
       ],
@@ -57,51 +56,50 @@ describe('CountryDetailComponent', () => {
   // });
 
   it('should display the country name', () => {
-    let countryDe = mockHostFixture.debugElement.query(By.css('#countryName'));
-    let countryEl = countryDe.nativeElement;
+    const countryDe = mockHostFixture.debugElement.query(By.css('#countryName'));
+    const countryEl = countryDe.nativeElement;
 
     expect(countryEl.textContent).toBe(mockHostComponent.country.name);
   });
 
-  xit('#closeCountryDetail should emit onClose event', () => {
-    
-  })
+  xit('#closeCountryDetail should emit close event', () => {
+  });
 
   it('should display the flag', () => {
-    let actual = mockHostFixture.debugElement.nativeElement.querySelector('img').src;
+    const actual = mockHostFixture.debugElement.nativeElement.querySelector('img').src;
 
-    expect(actual).toContain("https://flagcdn.com/pe.svg");
-  })
+    expect(actual).toContain('https://flagcdn.com/pe.svg');
+  });
 
   it('should display the capital', () => {
-    let countryDe = mockHostFixture.debugElement.query(By.css('#capital'));
-    let countryEl = countryDe.nativeElement;
+    const countryDe = mockHostFixture.debugElement.query(By.css('#capital'));
+    const countryEl = countryDe.nativeElement;
 
     expect(countryEl.textContent).toBe(mockHostComponent.country.capital);
   });
 
   it('should display the population', () => {
-    let countryDe = mockHostFixture.debugElement.query(By.css('#population'));
-    let countryEl = countryDe.nativeElement;
+    const countryDe = mockHostFixture.debugElement.query(By.css('#population'));
+    const countryEl = countryDe.nativeElement;
 
-    expect(countryEl.textContent).toBe("32,971,846");
+    expect(countryEl.textContent).toBe('32,971,846');
   });
 
   it('should display a language', () => {
-    let countryDe = mockHostFixture.debugElement.query(By.css('#language-0'));
-    let countryEl = countryDe.nativeElement;
+    const countryDe = mockHostFixture.debugElement.query(By.css('#language-0'));
+    const countryEl = countryDe.nativeElement;
 
-    let expectedLanguage = mockHostComponent.country.languages[0];
+    const expectedLanguage = mockHostComponent.country.languages[0];
 
     expect(countryEl.textContent).toBe(expectedLanguage.name);
   });
 
   it('should display a currency', () => {
-    let countryDe = mockHostFixture.debugElement.query(By.css('#currency-0'));
-    let countryEl = countryDe.nativeElement;
+    const countryDe = mockHostFixture.debugElement.query(By.css('#currency-0'));
+    const countryEl = countryDe.nativeElement;
 
-    let expectedCurrency = mockHostComponent.country.currencies[0];
-    let expected = expectedCurrency.name + " (" + expectedCurrency.symbol + ")"; 
+    const expectedCurrency = mockHostComponent.country.currencies[0];
+    const expected = expectedCurrency.name + ' (' + expectedCurrency.symbol + ')';
 
     expect(countryEl.textContent).toBe(expected);
   });
