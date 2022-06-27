@@ -82,6 +82,7 @@ describe('PaginationComponent', () => {
     component.currentPage = 2;
     fixture.detectChanges();
 
+    // TODO: test needs to wait - google: async tests in jasmine. 
     component.next.subscribe((res) => {
       expect(res).toBe(component.currentPage);
     })
