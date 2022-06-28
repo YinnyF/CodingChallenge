@@ -11,7 +11,7 @@
 
             <ul class="countries-list">
                 <li *ngFor="let country of countriesToDisplay; let i=index" class="country"
-                    [class.selected-country]="country === selectedCountry" id="country-{{i}}">
+                    [ngClass]="{'selected-country': country === selectedCountry}" id="country-{{i}}">
                     <div (click)="onSelect(country)">
                         {{country.name}}
                     </div>

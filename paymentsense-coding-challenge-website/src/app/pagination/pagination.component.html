@@ -18,7 +18,7 @@
                     [attr.aria-label]="
                         page === currentPage ? 'Current Page, Page ' + page : 'Go to Page ' + page
                     "
-                    [class.current]="page === currentPage"
+                    [ngClass]="{'current': page === currentPage}"
                     tabindex="0"
                     (click)="onGoTo(page)"
                 >
