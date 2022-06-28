@@ -18,7 +18,7 @@ export class CountriesComponent implements OnInit {
   countriesToDisplay: Country[] = [];
 
   pageSize = 10;
-  totalPages$: Observable<number> = new Observable<number>();
+  totalPages: number;
 
   // selectedCountryId?: number;
 
@@ -35,7 +35,7 @@ export class CountriesComponent implements OnInit {
   }
 
   getCountries(): void {
-    this.totalPages$ = this.countryService.getCountries().pipe(
+    this.countryService.getCountries().pipe(
       take(1),
       tap(countries => {
         this.countries = countries;
@@ -44,7 +44,10 @@ export class CountriesComponent implements OnInit {
       map(countries => {
         this.numberOfCountries = countries.length;
         return Math.ceil(this.numberOfCountries / this.pageSize);
-      }));
+      }))
+      .subscribe(num => {
+        this.totalPages = num;
+      });
   }
 
   onGoTo(page: number): void {

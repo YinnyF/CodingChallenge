@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -7,27 +7,20 @@ import { takeUntil } from 'rxjs/operators';
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.scss']
 })
-export class PaginationComponent implements OnInit, OnDestroy {
-  @Input() totalPages$: Observable<number>;
+export class PaginationComponent implements OnChanges {
+  @Input() totalPages: number;
   @Output() goTo: EventEmitter<number> = new EventEmitter<number>();
 
-  public totalPages = 0;
   public currentPage = 1;
-  public pages: number[] = [];
-
-  private destroy$: Subject<void> = new Subject<void>();
+  public pages: number[];
 
   constructor() { }
 
-  ngOnInit(): void {
-    this.totalPages$.pipe(
-      takeUntil(this.destroy$)
-    )
-      .subscribe(pages => {
-        for (let i = 1; i <= pages; i++) {
-          this.pages.push(i);
-        }
-      });
+  ngOnChanges(): void {
+    this.pages = [];
+    for (let i = 1; i <= this.totalPages; i++) {
+      this.pages.push(i);
+    }
   }
 
   public onGoTo(page: number): void {
@@ -45,8 +38,4 @@ export class PaginationComponent implements OnInit, OnDestroy {
     this.goTo.emit(this.currentPage);
   }
 
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.unsubscribe();
-  }
 }
