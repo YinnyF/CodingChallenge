@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
 @Component({
@@ -9,8 +10,9 @@ import { filter, map } from 'rxjs/operators';
   styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   title?: string;
+  titleSubscription: Subscription;
 
   constructor(
     private router: Router,
@@ -19,7 +21,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.router.events
+    this.titleSubscription = this.router.events
       .pipe(
         filter((event) => event instanceof NavigationEnd),
         map(() => {
@@ -40,5 +42,10 @@ export class AppComponent implements OnInit {
           this.title = title;
         }
       });
+    }
+    
+    ngOnDestroy(): void {
+    // prevent memory leak - can also use takeUntil
+    this.titleSubscription.unsubscribe();
   }
 }
