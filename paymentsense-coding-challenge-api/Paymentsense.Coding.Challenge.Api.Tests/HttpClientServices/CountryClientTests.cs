@@ -28,13 +28,14 @@ namespace Paymentsense.Coding.Challenge.Api.Tests.HttpClientServices
             // Arrange - initialise objects, set behaviour of _fakeHttpMessageHandler
             _fakeHttpResponseMessage = new HttpResponseMessage {
                 StatusCode = HttpStatusCode.NotFound,
-                Content = new StringContent($"{null}")
+                Content = new StringContent(string.Empty)
             };
 
             _fakeHttpMessageHandler = new Mock<FakeHttpMessageHandler> { CallBase = true };
             _fakeHttpMessageHandler.Setup(f => f.Send(It.IsAny<HttpRequestMessage>()))
                 .Returns(_fakeHttpResponseMessage);
 
+            // Here we are mocking the http request by mocking the message handler
             _httpClient = new HttpClient(_fakeHttpMessageHandler.Object);
 
             _fakeHttpClientFactory = new Mock<IHttpClientFactory>();
@@ -56,7 +57,7 @@ namespace Paymentsense.Coding.Challenge.Api.Tests.HttpClientServices
             _fakeHttpResponseMessage = new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.NoContent,
-                Content = new StringContent($"{null}")
+                Content = new StringContent(string.Empty)
             };
 
 
@@ -85,7 +86,7 @@ namespace Paymentsense.Coding.Challenge.Api.Tests.HttpClientServices
             _fakeHttpResponseMessage = new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.InternalServerError,
-                Content = new StringContent($"{null}")
+                Content = new StringContent(string.Empty)
             };
 
 
@@ -151,7 +152,7 @@ namespace Paymentsense.Coding.Challenge.Api.Tests.HttpClientServices
             _fakeHttpResponseMessage = new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.NotFound,
-                Content = new StringContent($"{null}")
+                Content = new StringContent(string.Empty)
             };
 
             _fakeHttpMessageHandler = new Mock<FakeHttpMessageHandler> { CallBase = true };
@@ -181,7 +182,7 @@ namespace Paymentsense.Coding.Challenge.Api.Tests.HttpClientServices
             _fakeHttpResponseMessage = new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.InternalServerError,
-                Content = new StringContent($"{null}")
+                Content = new StringContent(string.Empty)
             };
 
             _fakeHttpMessageHandler = new Mock<FakeHttpMessageHandler> { CallBase = true };
