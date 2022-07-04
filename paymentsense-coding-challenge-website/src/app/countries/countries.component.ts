@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { map, take, tap } from 'rxjs/operators';
 import { Country } from '../country';
 import { PaymentsenseCodingChallengeApiService as CountryService } from '../services';
@@ -9,8 +9,9 @@ import { PaymentsenseCodingChallengeApiService as CountryService } from '../serv
   templateUrl: './countries.component.html',
   styleUrls: ['./countries.component.scss']
 })
-export class CountriesComponent implements OnInit {
-
+export class CountriesComponent implements OnInit, OnDestroy {
+  
+  countriesSubscription: Subscription;
   countries: Country[] = [];
   numberOfCountries: number;
 
@@ -19,7 +20,7 @@ export class CountriesComponent implements OnInit {
 
   pageSize = 10;
   totalPages: number;
-
+  
   // selectedCountryId?: number;
 
   constructor(
@@ -30,12 +31,16 @@ export class CountriesComponent implements OnInit {
     this.getCountries();
   }
 
+  ngOnDestroy(): void {
+    this.countriesSubscription.unsubscribe();
+  }
+
   onSelect(country: Country): void {
     this.selectedCountry = country;
   }
 
   getCountries(): void {
-    this.countryService.getCountries().pipe(
+    this.countriesSubscription = this.countryService.getCountries().pipe(
       take(1),
       tap(countries => {
         this.countries = countries;
@@ -44,10 +49,9 @@ export class CountriesComponent implements OnInit {
       map(countries => {
         this.numberOfCountries = countries.length;
         return Math.ceil(this.numberOfCountries / this.pageSize);
-      }))
-      .subscribe(num => {
-        this.totalPages = num;
-      });
+      }),
+      tap(num => this.totalPages = num)
+    ).subscribe();
   }
 
   onGoTo(page: number): void {
