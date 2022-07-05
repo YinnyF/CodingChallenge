@@ -17,14 +17,7 @@ class CountriesDescriptionStubComponent {
 @Component({ selector: 'app-pagination', template: '' })
 class PaginationStubComponent {
   @Input()
-  public currentPage: number;
-
-  @Input()
   public totalPages: number;
-
-  // onGoTo() {};
-  // onNext() {};
-  // onPrevious() {};
 }
 
 @Component({ selector: 'app-country-detail', template: ''})

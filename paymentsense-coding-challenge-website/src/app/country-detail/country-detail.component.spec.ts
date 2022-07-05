@@ -24,6 +24,8 @@ const getCountry = () => <Country> {
 class MockHostComponent {
   @Input()
   public country: Country;
+
+  // @Output() close = new EventEmitter<boolean>();
 }
 
 describe('CountryDetailComponent', () => {
